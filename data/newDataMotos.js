@@ -10,7 +10,7 @@ export const dataMotos = [
     },
     {
         "Id": "1855",
-        "Marca_y_modelo": "SK3",
+        "Marca_y_modelo": "SK3 ",
         "Km": "10167.269",
         "CO2": "986.225093",
         "TELEFONOS": "120319.4613",

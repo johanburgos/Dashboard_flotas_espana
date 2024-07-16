@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import { useState } from "react";
 import EChartsNextForReactCore from "echarts-next-for-react";
 import * as echarts from "echarts/core";
@@ -29,10 +29,12 @@ import jsPDF from "jspdf";
 import { thousandFormater } from "../utils/thousandformater";
 import { dataDefautlGraph } from "@/data/dataDashboardBase";
 import GoogleMaps from "@/components/heatMap";
+import { dataMotos } from "@/data/newDataMotos";
 
 
 export const home = () => {
   const [dataDashboard, setDataDashboard] = useState(dataDefautlGraph);
+  const [dataMotosC, setDataMotosC] = useState(dataMotos);
   const [filters, setFilters] = useState({
     "departamento": null,
     "vehicle": null,
@@ -94,6 +96,194 @@ export const home = () => {
     }
   }, [dataDashboard]);
 
+  const [marcasYModelos, setMarcasYModelos] = useState([]);
+  const [analytics, setAnalytics] = useState({
+    totalKms: 0,
+    totalArboles: 0,
+    totalTelefonos: 0,
+    totalBolsas: 0,
+    totalCO2: 0,
+  });
+
+
+  const [graphPastel, setGraphPastel] = useState({
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '5%',
+      left: 'center'
+    },
+    series: [
+      {
+        name: 'Access From',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 40,
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: 1048, name: 'Furgonetas eléctricas' },
+          { value: 735, name: 'Vehículos eléctricos' },
+          { value: 580, name: 'Vehiculos hibridos' },
+          { value: 484, name: 'Motos eléctricas (Cargobikes)' },
+          { value: 300, name: 'Bicicletas eléctricas' }
+        ]
+      }
+    ]
+  });
+
+  const [graphCO2, setGraphCO2] = useState({
+    "tooltip": {
+      "trigger": "axis",
+      "axisPointer": {
+        "type": "shadow"
+      }
+    },
+    "grid": {
+      "left": "3%",
+      "right": "4%",
+      "bottom": "3%",
+      "containLabel": true
+    },
+    "xAxis": [
+      {
+        "type": "category",
+        "data":[],
+        "axisTick": {
+          "alignWithLabel": true
+        }
+      }
+    ],
+    "yAxis": [
+      {
+        "type": "value"
+      }
+    ],
+    "series": [
+      {
+        "name": "Viajes",
+        "type": "bar",
+        "barWidth": "60%",
+        "data": [],
+        "itemStyle": {
+          "color": "#06e0c9"
+        },
+        "label": {
+          "show": true,
+          "position": "top"
+        }
+      }
+    ]
+  });
+
+
+  useEffect(() => {
+    setDataMotosC(dataMotos);
+    let arr = [];
+    dataMotos.map((item) => {
+      if (!arr.includes(item.Marca_y_modelo)) {
+        arr.push(item.Marca_y_modelo);
+      }
+    });
+    let arrDataPastel = arr.map((item) => {
+      return {
+        value: 0,
+        name: item
+      }
+    });
+
+    let arrDataBar = arr.map((item) => {
+      return {
+        value: 0,
+        name: item
+      }
+    });
+
+    dataMotos.map((item) => {
+      arrDataPastel.map((item2) => {
+        if (item.Marca_y_modelo === item2.name) {
+          item2.value += parseFloat(item.Km);
+        }
+      });
+
+      arrDataBar.map((item2) => {
+        if (item.Marca_y_modelo === item2.name) {
+          item2.value += parseFloat(item.CO2);
+        }
+      });
+    }
+    );
+    let totalKms = 0;
+    let totalArboles = 0;
+    let totalTelefonos = 0;
+    let totalBolsas = 0;
+    let totalCO2 = 0;
+    dataMotos.map((item) => {
+      if ((filters.vehicle === item.Marca_y_modelo || filters.vehicle === null)) {
+        totalKms += parseFloat(item.Km);
+        totalArboles += parseFloat(item.ARBOLES);
+        totalTelefonos += parseFloat(item.TELEFONOS);
+        totalBolsas += parseFloat(item.BOLSAS);
+        totalCO2 += parseFloat(item.CO2);
+      }
+    });
+    setAnalytics({
+      totalKms,
+      totalArboles,
+      totalTelefonos,
+      totalBolsas,
+      totalCO2,
+    });
+    setMarcasYModelos(arr);
+
+    //setGraphPastel
+    setGraphPastel({
+      ...graphPastel,
+      series: [
+        {
+          ...graphPastel.series[0],
+          data: arrDataPastel,
+        }
+      ]
+    });
+
+    //setGraphCO2
+    setGraphCO2({
+      ...graphCO2,
+      xAxis: [
+        {
+          ...graphCO2.xAxis[0],
+          data: arr,
+        }
+      ],
+      series: [
+        {
+          ...graphCO2.series[0],
+          data: arrDataBar.map((item) => item.value),
+        }
+      ]
+    });
+
+  }, [dataMotos, filters]);
+
   return (
     <Layout>
       <div
@@ -105,20 +295,13 @@ export const home = () => {
         </button>
         <div className="w-full h-auto flex flex-col gap-2 justify-center items-center">
           <div className="w-full h-auto flex justify-center items-center">
-            <input type="date" className="datePickerOne" onChange={(e) => handleFilters(e, "date_start")} value={filters.date_start} />
-            <input type="date" className="datePickerTwo" onChange={(e) => handleFilters(e, "date_end")} value={filters.date_end} />
-          </div>
-          <div className="w-full h-auto flex justify-center items-center">
             <select className="selectPicker" onChange={(e) => handleFilters(e, "vehicle")} value={filters.vehicle}>
               <option value="0" disabled selected>
-                Escoge un medio de transporte
+                Escoge un modelo
               </option>
-              <option value="Transporte público">Transporte público</option>
-              <option value="Caminar">Caminar</option>
-              <option value="Bicicleta">Bicicleta</option>
-              <option value="Patinete eléctrico">Patinete eléctrico</option>
-              <option value="Bicicleta eléctrica">Bicicleta eléctrica</option>
-              <option value="Moto eléctrica">Moto eléctrica</option>
+              {marcasYModelos.map((item) => (
+                <option value={item}>{item}</option>
+              ))}
             </select>
           </div>
         </div>
@@ -126,7 +309,7 @@ export const home = () => {
         <div className="w-full h-auto flex flex-col items-start gap-4 customSecBg">
           <div className="w-auto h-auto">
             <p className="text-[25px] font-bold text-[#FFFFFF]">
-              CAEs Estimados
+              Kilometros Totales
             </p>
           </div>
           <div className="w-full h-auto">
@@ -134,26 +317,28 @@ export const home = () => {
               <div className="card flex  justify-center items-center gap-4">
                 <div>
                   <p className="font-bold text-[#595959]">
-                    MWh
+                    KM
                   </p>
                   <div className="flex w-auto min-w-[200px] h-auto px-1 justify-center items-center box-border border-2 border-[#C6C6C6] rounded-[10px]">
                     <p className="font-bold text-[30px] text-[#C6C6C6] m-0">
-                      1000
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-bold text-[#595959]">
-                    Ahorro MWh
-                  </p>
-                  <div className="flex w-auto min-w-[200px] h-auto px-1 justify-center items-center box-border border-2 border-[#C6C6C6] rounded-[10px]">
-                    <p className="font-bold text-[30px] text-[#C6C6C6] m-0">
-                      € 70,000
+                      {thousandFormater(analytics.totalKms)}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="item w-auto h-auto">
+          <div className="card">
+            <h2 className="font-bold text-[#595959] text-[20px]">
+              Vehiculos
+            </h2>
+            <EChartsNextForReactCore
+              option={graphPastel}
+              style={{ height: "400px", width: "100%" }}
+            />
           </div>
         </div>
         {/*End Sections*/}
@@ -172,7 +357,7 @@ export const home = () => {
                   Co2 dejado de emitir
                 </h2>
                 <EChartsNextForReactCore
-                  option={dataDashboard?.co2off}
+                  option={graphCO2}
                   style={{ height: "400px", width: "100%" }}
                 />
               </div>
@@ -187,7 +372,7 @@ export const home = () => {
                     className="w-[30px] h-[40px]"
                   />
                   <p className="font-bold text-[30px] text-[#C6C6C6]">
-                    {thousandFormater(dataDashboard?.dataAdmin?.smartphones)}
+                    {thousandFormater(analytics.totalTelefonos)}
                   </p>
                 </div>
               </div>
@@ -200,9 +385,8 @@ export const home = () => {
                     className="w-[40px] h-[40px]"
                   />
                   <p className="font-bold text-[30px] text-[#C6C6C6]">
-                    {thousandFormater(
-                      dataDashboard?.dataAdmin?.numeroPlantulas
-                    )}
+                    {thousandFormater(analytics.totalArboles)}
+
                   </p>
                 </div>
               </div>
@@ -217,9 +401,7 @@ export const home = () => {
                     className="w-[40px] h-[40px]"
                   />
                   <p className="font-bold text-[30px] text-[#C6C6C6]">
-                    {thousandFormater(
-                      dataDashboard?.dataAdmin?.bolsasRecicladas
-                    )}
+                    {thousandFormater(analytics.totalBolsas)}
                   </p>
                 </div>
               </div>
@@ -234,58 +416,9 @@ export const home = () => {
                     className="w-[40px] h-[40px]"
                   />
                   <p className="font-bold text-[30px] text-[#C6C6C6]">
-                    {thousandFormater(dataDashboard?.dataAdmin?.co2)}
+                    {thousandFormater(analytics.totalCO2)}
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/*Section 2*/}
-        <div className="w-full h-auto flex flex-col items-start gap-4 customSecBg2">
-          <div className="w-full h-auto customMasonry">
-            <div className="item w-auto h-auto">
-              <div className="card">
-                <h2 className="font-bold text-[#595959] text-[20px]">Mapa de Calor Madrid</h2>
-                <GoogleMaps />
-              </div>
-            </div>
-            <div className="item w-auto h-auto">
-              <div className="card">
-                <h2 className="font-bold text-[#595959] text-[20px]">Viajes</h2>
-                <EChartsNextForReactCore
-                  option={dataDashboard?.viajes}
-                  style={{ height: "400px", width: "100%" }}
-                />
-              </div>
-            </div>
-            <div className="item w-auto h-auto">
-              <div className="card flex flex-col justify-center items-center gap-4">
-                <p className="font-bold text-[#595959]">km recorridos</p>
-                <div className="flex w-auto min-w-[200px] h-auto px-1 justify-center items-center box-border border-2 border-[#C6C6C6] rounded-[10px]">
-                  <p className="font-bold text-[30px] text-[#C6C6C6] m-0">
-                    {thousandFormater(dataDashboard?.dataAdmin?.km)}
-                  </p>
-                </div>
-                <p className="font-bold text-[#595959]">
-                  Viajes Totales Realizados
-                </p>
-                <div className="flex w-auto min-w-[200px] h-auto px-1 justify-center items-center box-border border-2 border-[#C6C6C6] rounded-[10px]">
-                  <p className="font-bold text-[30px] text-[#C6C6C6] m-0">
-                    {thousandFormater(dataDashboard?.dataAdmin?.viajes)}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="item w-auto h-auto">
-              <div className="card">
-                <h2 className="font-bold text-[#595959] text-[20px]">
-                  Medios de transporte
-                </h2>
-                <EChartsNextForReactCore
-                  option={dataDashboard?.transporte}
-                  style={{ height: "400px", width: "100%" }}
-                />
               </div>
             </div>
           </div>
