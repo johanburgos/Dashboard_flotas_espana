@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">
+  <g id="Grupo_44" data-name="Grupo 44" transform="translate(-38 -418)">
+    <rect id="Rectángulo_38" data-name="Rectángulo 38" width="34" height="34" transform="translate(38 418)" fill="none"/>
+    <g id="SVGRepo_iconCarrier" transform="translate(40.9 423.805)">
+      <path id="secondary" d="M7.721,12.1A5.621,5.621,0,1,1,2.1,17.721,5.627,5.627,0,0,1,7.721,12.1Zm0,9.442A3.821,3.821,0,1,0,3.9,17.721,3.825,3.825,0,0,0,7.721,21.542ZM26.605,12.1a5.621,5.621,0,1,1-5.621,5.621A5.627,5.627,0,0,1,26.605,12.1Zm0,9.442a3.821,3.821,0,1,0-3.821-3.821A3.825,3.825,0,0,0,26.605,21.542Z" transform="translate(-3 -0.411)" fill="#01d9ad"/>
+      <path id="primary" d="M18.19,22.487,15.279,7.93a2.48,2.48,0,0,1,1.311-2.7L18.67,4.2l.8,1.61L17.4,6.844a.675.675,0,0,0-.354.733l2.911,14.557Z" transform="translate(4.532 -5)" fill="#01d9ad"/>
+      <path id="primary-2" data-name="primary" d="M12.326,15.164,11.178,9.436A.673.673,0,0,0,10.5,8.9H8V7.1h2.478a2.473,2.473,0,0,1,2.464,1.979l1.149,5.731Z" transform="translate(-0.132 -3.279)" fill="#01d9ad"/>
+      <path id="primary-3" data-name="primary" d="M.488,11.536l-.975-1.513L16.241-.757,17.216.757Z" transform="translate(4.721 6.531)" fill="#01d9ad"/>
+    </g>
+  </g>
+</svg>

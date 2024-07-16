@@ -1,0 +1,381 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Quicksand_Bold_Oblique";
+  src: url("../public/fonts/Quicksand_Bold_Oblique.otf") format("opentype");
+}
+@font-face {
+  font-family: "Quicksand_Bold";
+  src: url("../public/fonts/Quicksand_Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: "Quicksand_Book";
+  src: url("../public/fonts/Quicksand_Book.otf") format("opentype");
+}
+@font-face {
+  font-family: "Quicksand_Book_Oblique";
+  src: url("../public/fonts/Quicksand_Book_Oblique.otf") format("opentype");
+}
+@font-face {
+  font-family: "Quicksand_Light";
+  src: url("../public/fonts/Quicksand_Light.otf") format("opentype");
+}
+@font-face {
+  font-family: "Quicksand_Light_Oblique";
+  src: url("../public/fonts/Quicksand_Light_Oblique.otf") format("opentype");
+}
+@font-face {
+  font-family: "Quicksand_Regular";
+  src: url("../public/fonts/Quicksand-VariableFont_wght.ttf") format("opentype");
+}
+
+* {
+  font-family: "Quicksand_Regular";
+  font-weight: 500;
+}
+body {
+  background: #f5f7f6;
+}
+.quicksand-bold {
+  font-family: "Quicksand_Bold";
+}
+.quicksand-bold-oblique {
+  font-family: "Quicksand_Bold_Oblique";
+}
+.quicksand-book {
+  font-family: "Quicksand_Book";
+}
+.quicksand-book-oblique {
+  font-family: "Quicksand_Book_Oblique";
+}
+.quicksand-light {
+  font-family: "Quicksand_Light";
+}
+.quicksand-light-oblique {
+  font-family: "Quicksand_Light_Oblique";
+}
+.quicksand-regular {
+  font-family: "Quicksand_Regular";
+}
+
+.bg-label {
+  background: transparent linear-gradient(90deg, #01d9ad 0%, #00b3d8 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 15px 0px 0px 15px;
+  transition: all 0.3s ease;
+}
+.input-login {
+  border: 1px solid #e2e2e2;
+  border-radius: 0px 15px 15px 0px;
+  transition: all 0.3s ease;
+}
+.input-login:focus {
+  outline: none;
+  border: 1px solid #01d9ad;
+  box-shadow: 0px 3px 10px #00000014;
+  transform: translateY(-2px);
+}
+.input-login:focus + .bg-label {
+  transform: translateY(-2px);
+}
+.login-button {
+  background: #dcf8f3;
+  border-radius: 15px;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+  color: #76ebd3;
+  font-family: "Quicksand_Bold";
+  padding-top: 3px;
+}
+.login-button:hover,
+.login-button:focus {
+  background: transparent linear-gradient(90deg, #01d9ad 0%, #000 100%) 0% 0%
+    no-repeat padding-box;
+  color: #fff;
+  box-shadow: 0px 3px 10px #00000014;
+  outline: none;
+  cursor: pointer;
+}
+.login-button:hover {
+  transform: translateY(-2px);
+}
+.btn-bg {
+  background: #01d9adab 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  opacity: 1;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+.hamburger {
+  background: transparent linear-gradient(90deg, #01d9ad 0%, #00b3d8 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 10px;
+  height: 38px;
+  width: 38px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  padding: 10px;
+}
+.hamburger .line {
+  width: 20px;
+  height: 2px;
+  background-color: #fff;
+  display: block;
+  margin: 2px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger:hover {
+  cursor: pointer;
+}
+#hamburger-4 .line:nth-child(1) {
+  width: 16px;
+  margin: 0px 0px;
+}
+#hamburger-4 .line:nth-child(3) {
+  width: 16px;
+  margin: 0px 0px 0px auto;
+}
+
+#hamburger-4.is-active .line:nth-child(1),
+#hamburger-4.is-active .line:nth-child(3) {
+  width: 13px;
+  margin: 0 auto !important;
+}
+
+#hamburger-4.is-active .line:nth-child(1) {
+  -webkit-transform: translateX(7px) rotate(45deg);
+  -ms-transform: translateX(7px) rotate(45deg);
+  -o-transform: translateX(7px) rotate(45deg);
+  transform: translateX(7px) rotate(45deg);
+}
+
+#hamburger-4.is-active .line:nth-child(3) {
+  -webkit-transform: translateX(7px) rotate(-45deg);
+  -ms-transform: translateX(7px) rotate(-45deg);
+  -o-transform: translateX(7px) rotate(-45deg);
+  transform: translateX(7px) rotate(-45deg);
+}
+input {
+  outline: none !important;
+}
+strong {
+  font-family: "Quicksand_Bold";
+}
+
+.sidebar {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 25px #ebebeb;
+  border-radius: 0px 20px 0px 0px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+#tooltip-right {
+  left: 81px;
+  width: 126px;
+}
+#tooltip-right:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent #01d9ad transparent transparent;
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto;
+  margin-right: 5px;
+  margin-left: -24px;
+}
+
+.item-menu:hover #tooltip-right {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.header .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 25px #ebebeb;
+  border-radius: 20px;
+}
+.logout {
+  box-shadow: 0px 0px 15px #ebebeb;
+  border: 1px solid #d5d5d575;
+}
+
+.datePickerOne {
+  height: auto;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 175px;
+  border: 1px solid #cccccc;
+  box-shadow: 0px 3px 6px #c2c2c229;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.datePickerTwo {
+  height: auto;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 175px;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-left: none;
+  box-shadow: 0px 3px 6px #c2c2c229;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.selectPicker {
+  height: auto;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 350px;
+  border: 1px solid #cccccc;
+  box-shadow: 0px 3px 6px #c2c2c229;
+  border-radius: 10px;
+}
+
+.buttonExport {
+  height: auto;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 200px;
+  background: transparent linear-gradient(90deg, #01d9ad 0%, #00b3d8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #c2c2c229;
+  border-radius: 10px;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  transition: all 0.3s ease-in-out;
+  color: #ffffff;
+}
+
+.buttonExport:hover {
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-5px);
+}
+
+.card {
+  width: 100%;
+  padding: 25px;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  box-shadow: 0px 3px 6px #c2c2c229;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.clock {
+  width: 40px;
+  height: 60px;
+  background: transparent linear-gradient(90deg, #01d9ad 0%, #00b3d8 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.points {
+  font-size: 35px;
+  color: #01d9ad;
+  font-weight: bold;
+}
+
+.customMasonry {
+  columns: 1;
+  column-gap: 10px;
+  display: unset !important;
+}
+
+.item {
+  width: 100%;
+  break-inside: avoid;
+  margin-bottom: 10px;
+}
+
+.customSecBg {
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background: transparent linear-gradient(90deg, #01d9ad 0%, #00b3d8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.customSecBg:hover {
+  box-shadow: 0px 3px 6px #01d9ad;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.customSecBg2 {
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background: #f2f3f3;
+  box-shadow: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.customSecBg2:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 3px 6px #f2f3f3;
+  transition: all 0.3s ease-in-out;
+}
+
+/*Loader*/
+.loader {
+  display: block;
+  position: relative;
+  height: 12px;
+  width: 80%;
+  border: 2px solid #01d9ad;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loader::after {
+  content: "";
+  width: 40%;
+  height: 100%;
+  background: #01d9ad;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
+}
+
+/*Media Querys*/
+@media (min-width: 992px) {
+  .customMasonry {
+    columns: 2;
+  }
+}
