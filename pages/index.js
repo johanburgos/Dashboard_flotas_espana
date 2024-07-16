@@ -52,8 +52,7 @@ export const index = () => {
         <div className="w-[40%] h-full flex justify-center items-center flex-col gap-12">
           <div className="flex flex-col items-center gap-10">
             <p className="text-[18px] text-[#707070]">
-              Bienvenido a{" "}
-              <span style={{ fontWeight: "bold" }}>NET ZERO</span>
+              BIENVENIDO
             </p>
           </div>
           <div className="w-[100%]">

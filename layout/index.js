@@ -26,6 +26,13 @@ export default function index({ children }) {
                     active: true,
                 },
                 {
+                    id: 1,
+                    name: "Vehículos",
+                    icon: "/icons/usuarios_registrados.svg",
+                    link: "/vehicles",
+                    active: true,
+                },
+                {
                     id: 4,
                     name: "Configuración",
                     icon: "/icons/registrar_administrador.svg",
@@ -67,7 +74,7 @@ export default function index({ children }) {
                     style={{ marginTop: isActive ? "0px" : "20px" }}
                 >
                     {isActive && (
-                        <h3 className="text-[#01D9AD] font-bold text-xl mb-3">NET ZERO</h3>
+                        <h3 className="text-[#01D9AD] font-bold text-xl mb-3">DASHBOARD</h3>
                     )}
                 </div>
                 <div className="sidebar__menu">
@@ -110,7 +117,7 @@ export default function index({ children }) {
                                 Bienvenido
                             </p>
                             <p className="text-[#8D8D8D] text-[22px]">
-                                NET ZERO USER
+                                USER
                             </p>
                         </div>
                         <button
