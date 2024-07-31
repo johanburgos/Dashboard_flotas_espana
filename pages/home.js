@@ -377,7 +377,7 @@ export const home = () => {
                 </div>
               </div>
               <div className="!w-[49%] card flex flex-col justify-center items-center gap-4">
-                <p className="font-bold text-[#595959]">PLANTULAS SEMBRADAS</p>
+                <p className="font-bold text-[#595959]">ARBOLES PLANTADOS</p>
                 <div className="flex flex-col justify-center items-center gap-2.5">
                   <img
                     src="img/plantulasSembradas.png"
